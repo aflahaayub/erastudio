@@ -26,6 +26,7 @@ const Services = styled.div`
   display: grid;
   color: white;
   padding: 1rem 0;
+  gap: 0.7rem;
 
   @media (min-width: 52rem) {
     grid-template-columns: 1fr 1fr;
@@ -34,6 +35,7 @@ const Services = styled.div`
 const Service = styled(Link)`
   color: white;
   padding: 0.3rem 0;
+  padding-right: 1rem;
 `
 
 const Medsos = styled.ul`
