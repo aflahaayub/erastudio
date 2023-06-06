@@ -47,7 +47,7 @@ const Medsos = styled.ul`
     padding: 1rem;
   }
 `
-
+import { dataServices } from "../assets/dataServices"
 export const Footer = () => {
   return (
     <WrapFooter>
@@ -55,11 +55,11 @@ export const Footer = () => {
         <div>
           <p>Services</p>
           <Services>
-            <Service to="content-management"> Content Management</Service>
-            <Service to="socmed-management">Social Media Management</Service>
-            <Service to="photo-product">Photo Product</Service>
-            <Service to="logo-design">Logo Design</Service>
-            {/* <Service to="freemium">Freemium</Service> */}
+            {dataServices.map((data, index) => (
+              <Service key={index} to={`/layanan${data.route}`}>
+                {data.title}
+              </Service>
+            ))}
           </Services>
         </div>
         <div>
