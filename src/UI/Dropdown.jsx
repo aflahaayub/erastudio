@@ -48,7 +48,10 @@ export const Dropdown = () => {
         {dataServices.map((item, index) => {
           return (
             <li key={index}>
-              <List to={item.route} onClick={() => setDropdown(false)}>
+              <List
+                to={`/layanan${item.route}`}
+                onClick={() => setDropdown(false)}
+              >
                 {item.title}
               </List>
             </li>

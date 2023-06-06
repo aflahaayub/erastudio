@@ -76,9 +76,7 @@ export const Slide = ({ slideData }) => {
         />
         <article>
           <h3>{slideData.title}</h3>
-          <Button to={slideData.route} target="_blank">
-            View
-          </Button>
+          <Button to={`/layanan${slideData.route}`}>View</Button>
         </article>
       </SlideContainer>
     </>

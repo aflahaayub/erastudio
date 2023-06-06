@@ -19,26 +19,13 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/layanan" element={<Layanan />} />
-        <Route
-          path="/socmed-management"
-          element={<Layanan data={dataServices[0]} />}
-        />
-        <Route
-          path="/logo-design"
-          element={<Layanan data={dataServices[1]} />}
-        />
-        <Route
-          path="/product-photography"
-          element={<Layanan data={dataServices[2]} />}
-        />
-        <Route
-          path="/campaign-management"
-          element={<Layanan data={dataServices[3]} />}
-        />
-        <Route
-          path="/content-design"
-          element={<Layanan data={dataServices[4]} />}
-        />
+        {dataServices.map((data, index) => (
+          <Route
+            key={index}
+            path={`/layanan${data.route}`}
+            element={<Layanan data={data} />}
+          />
+        ))}
         <Route path="/projects" element={<Portofolio />} />
       </Routes>
     </>

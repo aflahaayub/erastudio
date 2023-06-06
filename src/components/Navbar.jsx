@@ -176,7 +176,7 @@ export const Navbar = () => {
             {dataServices.map((item, index) => {
               return (
                 <div key={index}>
-                  <List to={item.route}>{item.title}</List>
+                  <List to={`/layanan${item.route}`}>{item.title}</List>
                 </div>
               )
             })}
