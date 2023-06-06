@@ -2,6 +2,8 @@
 import styled, { css } from "styled-components"
 import { Link } from "react-router-dom"
 
+import { dataServices } from "../assets/dataServices"
+
 //style
 const Nav = styled.nav`
   max-width: 100vw;
@@ -12,7 +14,7 @@ const Nav = styled.nav`
   position: relative;
   align-items: center;
   margin: 1rem 3.5rem;
-
+  z-index: 100;
   li {
     margin: 0 1rem;
     @media (max-width: 52rem) {
@@ -21,8 +23,9 @@ const Nav = styled.nav`
   }
 `
 
-const WrapList = styled.ul`
+const WrapList = styled.div`
   display: flex;
+  width: 55vw;
   align-items: center;
   background-color: rgba(255, 255, 255, 0.4);
   backdrop-filter: saturate(180%) blur(10px);
@@ -93,12 +96,55 @@ const Image = styled(Link)`
   }
 `
 
+const Drop = styled.div`
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 1rem 1.5rem;
+  margin-top: 0.2rem;
+  &:hover {
+    color: white;
+    background-color: #6e299f7a;
+  }
+
+  ${props =>
+    props.activebtn &&
+    css`
+      color: white;
+      background-color: #6d299f;
+      &:hover {
+        border-bottom: none;
+        background-color: #2e1243;
+      }
+    `};
+
+  @media (min-width: 52rem) {
+    margin: 0 0.5rem;
+  }
+`
+
+const MobileDropdown = styled.div`
+  margin: 1rem 0;
+  background-color: #edecec;
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: 52rem) {
+    display: none;
+  }
+`
+
 //assets
 import logo from "../assets//header/Logo.jpg"
 import { useState } from "react"
+import { Dropdown } from "../UI/Dropdown"
 
 export const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false)
+  const [dropDown, setDropDown] = useState(false)
+  const [mobileDropDown, setMobileDropDown] = useState(true)
+
+  console.log(!mobileDropDown)
 
   return (
     <Nav>
@@ -117,28 +163,37 @@ export const Navbar = () => {
         </svg>
       </Menu>
       <WrapList expanded={toggleMenu ? "flex" : "none"}>
-        <li>
-          <List smooth to="#layanan">
-            Layanan
-          </List>
-        </li>
-        <li>
-          <List>
-            <Link to="/projects">Proyek</Link>
-          </List>
-        </li>
-        <li>
-          <List href="#">Blog</List>
-        </li>
-        <li>
-          <List
-            activebtn={true}
-            to="https://api.whatsapp.com/send?phone=62895413354000&text=Hello,%20Eradio!%20Saya%20ingin%20bertanya%20..."
-            target="_blank"
-          >
-            Hubungi Kami
-          </List>
-        </li>
+        <List
+          onClick={() => setMobileDropDown(!mobileDropDown)}
+          onMouseEnter={() => setDropDown(true)}
+          onMouseLeave={() => setDropDown(false)}
+        >
+          <p>Layanan</p>
+          {dropDown && <Dropdown />}
+        </List>
+        {mobileDropDown && (
+          <MobileDropdown onClick={() => setMobileDropDown(!mobileDropDown)}>
+            {dataServices.map((item, index) => {
+              return (
+                <div key={index}>
+                  <List to={item.route}>{item.title}</List>
+                </div>
+              )
+            })}
+          </MobileDropdown>
+        )}
+
+        <List to="/projects">Proyek</List>
+
+        <List href="#">Blog</List>
+
+        <List
+          activebtn="true"
+          to="https://api.whatsapp.com/send?phone=62895413354000&text=Hello,%20Eradio!%20Saya%20ingin%20bertanya%20..."
+          target="_blank"
+        >
+          Hubungi Kami
+        </List>
       </WrapList>
     </Nav>
   )
